@@ -3,7 +3,7 @@ This is a shell replacement for Adobe-Brackets for run it a in browser.
 The servers implementations for the moment are:
 1-)Php HTTP server
 2-)NodeJs HTTP and WebSockets
-
+ 
 How to Run
 --------------
 Put the **adobe-brackets** project folder download from github [download](here.md)
