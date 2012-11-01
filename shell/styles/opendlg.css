@@ -1,0 +1,110 @@
+/* 
+    Document   : main.css
+    Created on : 21-oct-2012, 10:07:35
+    Author     : yo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.open-folder-dialog ,
+.open-file-dialog {
+    height:80%;
+    width:60%;
+    left:45%;
+    top:40%;
+}
+
+.open-folder-dialog .modal-header,
+.open-file-dialog .modal-header{   
+    width:96%;
+}
+
+.open-folder-dialog .modal-body,
+.open-file-dialog .modal-body{   
+    height:80%;
+    width:96.05%;
+    background:none repeat scroll 0 0 #FFFFFF;
+    padding:0;
+}
+.open-folder-dialog .modal-body .modal-footer,
+.open-file-dialog .modal-body .modal-footer{       
+    width:100%;
+    
+}
+
+.open-folder-dialog  .jstree li {
+    margin-left:25px;
+}
+.open-folder-dialog .modal-body .dialog-message,
+.open-file-dialog .modal-body .dialog-message{
+    height:82%;
+    width:100%;
+}   
+    
+.open-folder-dialog .directory_tree.jstree-default.jstree-focused,
+.open-file-dialog .directory_tree.jstree-default.jstree-focused{       
+    background:none repeat scroll 0 0 #FFFFFF;
+}
+.open-folder-dialog .directory_tree,
+.open-file-dialog .directory_tree{       
+    height:100%;
+    overflow:auto;        
+    border-color:#EEEEEE;
+    border-style:inset;
+    border-width:2px;
+   
+}
+
+.open-folder-dialog .directory_tree{
+    width:100%;
+    margin-left:1%;
+    margin-right:auto;    
+}
+.open-file-dialog .directory_tree{       
+    width:30%;
+}
+
+.open-folder-dialog .directory_tree .jstree li a,
+.open-file-dialog .directory_tree .jstree li a{
+    margin-left:4px;
+}
+
+.open-file-dialog .file_container{
+    height: 100%;
+    margin-left:1%;
+    margin-right:auto;    
+}
+.open-file-dialog  .jstree li {
+    margin-left:10px;
+}
+
+.open-file-dialog  .file_view ul li:hover{
+    background-color: blue;
+    cursor:pointer;
+    background-color:#DDEEFF;
+}
+.open-file-dialog  .file_view ul{
+    list-style:disc outside url("images/file_ico.png");
+}
+.open-file-dialog  .directory_tree{
+     float:left;
+}
+.open-file-dialog  .file_view{
+    width: 60%;
+    height: 97%;    
+    float: left;      
+    overflow:auto;    
+    border-color:#EEEEEE;
+    border-style:inset;
+    border-width:2px 2px 2px 0;
+    background-color: #FFF;
+    padding:0 10px 10px 5px;
+}
+
+
+.open-folder-dialog  input.holder,
+.open-file-dialog   input.holder{
+    margin-left:10%;
+    margin-right:auto;
+    width:80%;
+}

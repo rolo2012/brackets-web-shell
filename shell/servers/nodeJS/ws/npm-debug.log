@@ -1,0 +1,81 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/bin/npm', 'install' ]
+info using npm@1.1.4
+info using node@v0.6.12
+verbose config file /root/.npmrc
+verbose config file /usr/etc/npmrc
+verbose config file /usr/share/npm/npmrc
+verbose caching /var/www/brackets-inbrow/src/nativeServer/package.json
+verbose loadDefaults node-proxy@0.0.1
+verbose readDependencies: using package.json deps
+verbose where, deps [ '/var/www/brackets-inbrow/src/nativeServer',
+verbose where, deps   [ 'ws', 'node-promise', 'trycatch' ] ]
+verbose from cache /var/www/brackets-inbrow/src/nativeServer/package.json
+info preinstall node-proxy@0.0.1
+verbose from cache /var/www/brackets-inbrow/src/nativeServer/package.json
+verbose readDependencies: using package.json deps
+verbose cache add [ 'ws@~ 0.4.15', null ]
+silly cache add: name, spec, args [ undefined, 'ws@~ 0.4.15', [ 'ws@~ 0.4.15', null ] ]
+verbose parsed url { pathname: 'ws@~', path: 'ws@~', href: 'ws@~' }
+silly cache add: name, spec, args [ 'ws', '~ 0.4.15', [ 'ws', '~ 0.4.15' ] ]
+verbose parsed url { pathname: '~', path: '~', href: '~' }
+verbose addNamed [ 'ws', '~ 0.4.15' ]
+verbose addNamed [ null, '>=0.4.15- <0.5.0-' ]
+silly name, range, hasData [ 'ws', '>=0.4.15- <0.5.0-', false ]
+verbose cache add [ 'node-promise@~ 0.5.2', null ]
+silly cache add: name, spec, args [ undefined,
+silly cache add: name, spec, args   'node-promise@~ 0.5.2',
+silly cache add: name, spec, args   [ 'node-promise@~ 0.5.2', null ] ]
+verbose parsed url { pathname: 'node-promise@~',
+verbose parsed url   path: 'node-promise@~',
+verbose parsed url   href: 'node-promise@~' }
+silly cache add: name, spec, args [ 'node-promise', '~ 0.5.2', [ 'node-promise', '~ 0.5.2' ] ]
+verbose parsed url { pathname: '~', path: '~', href: '~' }
+verbose addNamed [ 'node-promise', '~ 0.5.2' ]
+verbose addNamed [ null, '>=0.5.2- <0.6.0-' ]
+silly name, range, hasData [ 'node-promise', '>=0.5.2- <0.6.0-', false ]
+verbose cache add [ 'trycatch@~ 0.0.1', null ]
+silly cache add: name, spec, args [ undefined, 'trycatch@~ 0.0.1', [ 'trycatch@~ 0.0.1', null ] ]
+verbose parsed url { pathname: 'trycatch@~',
+verbose parsed url   path: 'trycatch@~',
+verbose parsed url   href: 'trycatch@~' }
+silly cache add: name, spec, args [ 'trycatch', '~ 0.0.1', [ 'trycatch', '~ 0.0.1' ] ]
+verbose parsed url { pathname: '~', path: '~', href: '~' }
+verbose addNamed [ 'trycatch', '~ 0.0.1' ]
+verbose addNamed [ null, '>=0.0.1- <0.1.0-' ]
+silly name, range, hasData [ 'trycatch', '>=0.0.1- <0.1.0-', false ]
+verbose raw, before any munging ws
+verbose url resolving [ 'https://registry.npmjs.org/', './ws' ]
+verbose url resolved https://registry.npmjs.org/ws
+http GET https://registry.npmjs.org/ws
+verbose raw, before any munging node-promise
+verbose url resolving [ 'https://registry.npmjs.org/', './node-promise' ]
+verbose url resolved https://registry.npmjs.org/node-promise
+http GET https://registry.npmjs.org/node-promise
+verbose raw, before any munging trycatch
+verbose url resolving [ 'https://registry.npmjs.org/', './trycatch' ]
+verbose url resolved https://registry.npmjs.org/trycatch
+http GET https://registry.npmjs.org/trycatch
+ERR! Error: failed to fetch from registry: ws
+ERR!     at /usr/share/npm/lib/utils/npm-registry-client/get.js:139:12
+ERR!     at cb (/usr/share/npm/lib/utils/npm-registry-client/request.js:31:9)
+ERR!     at Request._callback (/usr/share/npm/lib/utils/npm-registry-client/request.js:136:18)
+ERR!     at Request.callback (/usr/lib/nodejs/request/main.js:119:22)
+ERR!     at Request.<anonymous> (/usr/lib/nodejs/request/main.js:212:58)
+ERR!     at Request.emit (events.js:88:20)
+ERR!     at ClientRequest.<anonymous> (/usr/lib/nodejs/request/main.js:209:10)
+ERR!     at ClientRequest.emit (events.js:67:17)
+ERR!     at onConnect (/usr/lib/nodejs/request/tunnel.js:151:23)
+ERR!     at Array.0 (/usr/lib/nodejs/request/tunnel.js:132:7)
+ERR! You may report this log at:
+ERR!     <http://bugs.debian.org/npm>
+ERR! or use
+ERR!     reportbug --attach /var/www/brackets-inbrow/src/nativeServer/npm-debug.log npm
+ERR! 
+ERR! System Linux 3.2.0-23-generic-pae
+ERR! command "node" "/usr/bin/npm" "install"
+ERR! cwd /var/www/brackets-inbrow/src/nativeServer
+ERR! node -v v0.6.12
+ERR! npm -v 1.1.4
+ERR! message failed to fetch from registry: ws
+verbose exit [ 1, true ]
