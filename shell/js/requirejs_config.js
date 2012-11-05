@@ -2,7 +2,7 @@
 /*global define, $, window, document*/
 
 var require = {
-    deps: ['shell/js/appshell_extensions']
+    deps: ['shell/js/native_api_conf']
 };
 (function () {
     'use strict';
@@ -12,9 +12,11 @@ var require = {
     /**
      *  Configurations options
      */
-    var NativeApiConf = params.get('conf-url'),
+    var conf_url = params.get('conf-url'),
+       
         to_override = [
             "editor/CodeHintManager",
+            "utils/ExtensionLoader",
             "file/FileUtils"
         ],
         map = {
@@ -23,7 +25,7 @@ var require = {
         shell_path = "../../shell/",
         over_path = "../../shell/js/brack_extend/",
         index;
-    if (!NativeApiConf) {
+    if (!conf_url) {
         throw "You must set the configuration url in the conf-url atribute of the require.js <script> tag.";
     }
     for (index = 0; index < to_override.length; index++) {
@@ -35,7 +37,7 @@ var require = {
         map[over_path + path][path] = path;//exept in the overriden file
     }
     //adds the server config to the map
-    map["*"].NativeApiConf = NativeApiConf;
+    //map["*"].NativeApiConf = NativeApiConf;
     require.map = map;
     require.paths = {
         'shell': shell_path,
@@ -43,8 +45,12 @@ var require = {
         "i18n" : "thirdparty/i18n"
 
     };
-    require.callback = function () {
-        require(['brackets']);
+    require.callback = function (native_api_conf) {
+        native_api_conf.init(conf_url,function(){            
+            require(["shell/js/appshell_extensions"],function(){
+                require(['brackets']);
+            });            
+        });        
     };
 }());
 

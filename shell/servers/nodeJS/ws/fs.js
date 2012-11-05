@@ -5,6 +5,7 @@ var trycatch = require("trycatch");
 var fs = require("fs");
 var path = require("path");
 var promise = require("node-promise/promise");
+var config = require("./config");
 
 var NO_ERROR = 0;
 var ERR_UNKNOWN = 1;
@@ -202,8 +203,26 @@ function read_dir_files(path, callback) {
         }
     });
 }
+function get_bracket_dir() {
+    "use strict";
+    return path.normalize(__dirname + "/../../../../adobe-brackets/src");
+}
 
-
+function configure(callback){
+    "use strict";
+    var data = {
+            "RETURN_DATA_JSON" : 0,
+            "RETURN_DATA_JSONP": 1,
+            "DATA_FORMAT" : 0,
+            "CALL_URL" : "ws://localhost:" + config.ws_port,
+            "SERVER_TYPE": 'node_ws',
+            "CONEXION_HTTP" : 0,
+            "CONEXION_WS" : 1,
+            "CONEXION_TYPE" : 1,
+            "BRACKS_DIR" : get_bracket_dir()
+    };    
+    callback(0,data);
+}
 // current working directory
 function _cwd(callback) {
     "use strict";
@@ -235,3 +254,4 @@ exports.cwd = _wrap(_cwd);
 exports.get_top_dirs = _wrap(get_top_dirs);
 exports.read_dir_dirs = _wrap(read_dir_dirs);
 exports.read_dir_files = _wrap(read_dir_files);
+exports.configure = _wrap(configure);

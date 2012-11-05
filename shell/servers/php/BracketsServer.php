@@ -29,7 +29,7 @@ class BracketsServer {
         $this->output = new OutputHelper();
         $this->filesystem = new FileWrapperOpenDlg();
     }
-    
+
     protected function get_post($param) {
         $GETPOST = NULL;
         if ($this->http_method === "GET") {
@@ -62,7 +62,7 @@ class BracketsServer {
         } elseif (count($params) < $nums_params) {
             $this->output->error(ERR_INVALID_PARAMS);
         }
-        
+
         return $params;
     }
 
@@ -105,7 +105,7 @@ class BracketsServer {
             $file = $this->get_params();
             $data = $this->filesystem->file($file)->stat();
             $this->output->data($data);
-        } catch (Exception $e) {            
+        } catch (Exception $e) {
             $this->output->error($e->getCode());
         }
     }
@@ -127,9 +127,9 @@ class BracketsServer {
             $params = $this->get_params(3);
             $file = $params[0];
             $data = $params[1];
-            $encoding = $params[2];            
-            
-            $data = $this->filesystem->file($file)->write_file($data,$encoding);
+            $encoding = $params[2];
+
+            $data = $this->filesystem->file($file)->write_file($data, $encoding);
             $this->output->data($data);
         } catch (Exception $e) {
             $this->output->error($e->getCode());
@@ -194,6 +194,7 @@ class BracketsServer {
             $this->output->error($e->getCode());
         }
     }
+
     function read_dir_and_info_call() {
         try {
             $path = $this->get_params();
@@ -205,30 +206,38 @@ class BracketsServer {
             $this->output->error($e->getCode());
         }
     }
-    function config_module_call(){
-        $js=
-        array(
-            "RETURN_DATA_JSON"=>0,
-            "RETURN_DATA_JSONP"=>1,
-            "DATA_FORMAT" => OutputHelper::$return_data,
-            "CALL_URL" => PathUtils::siteurl(),
-            "SERVER_TYPE"=>'php_ajax',
-            "CONEXION_HTTP"=>0,
-            "CONEXION_WS"=>1,
-            "CONEXION_TYPE"=>0,
-            "BRACKS_DIR"=>  realpath(CURRENT_PAT."/../../../adobe-brackets/src")
-        );
-        header("Content-Type: application/javascript");
-        die("define(".$this->output->json_unicode_encode($js).")");
-    }    
-    function apiCall($method_name=FALSE){
-        if($method_name===FALSE){
-           $method_name=$this->get_post($this->func_key);            
+
+    function configure_call() {
+        $js = array("error" => 0,
+            "data" =>
+            array(
+                "RETURN_DATA_JSON" => 0,
+                "RETURN_DATA_JSONP" => 1,
+                "DATA_FORMAT" => OutputHelper::$return_data,
+                "CALL_URL" => PathUtils::siteurl(),
+                "SERVER_TYPE" => 'php_ajax',
+                "CONEXION_HTTP" => 0,
+                "CONEXION_WS" => 1,
+                "CONEXION_TYPE" => 0,
+                "BRACKS_DIR" => realpath(CURRENT_PAT . "/../../../adobe-brackets/src")
+                ));
+        $out=$this->output->json_unicode_encode($js);
+        if(isset($_GET['callback'])){
+            $out=$_GET['callback']."($out)";
         }
-        if($method_name && method_exists ($this,$method_name . "_call")){
-            return call_user_func(array($this,$method_name . "_call"));
-        }        
+        header("Content-Type: application/javascript");
+        die($out);
+    }
+
+    function apiCall($method_name=FALSE) {
+        if ($method_name === FALSE) {
+            $method_name = $this->get_post($this->func_key);
+        }
+        if ($method_name && method_exists($this, $method_name . "_call")) {
+            return call_user_func(array($this, $method_name . "_call"));
+        }
         $this->output->error(ERR_NOT_FOUND);
     }
+
     //function path_config_js() {
 }

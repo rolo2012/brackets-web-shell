@@ -8,3 +8,10 @@ adobe-brackets/*
 .settings/
 .project
 .buildpath
+#netbeans
+nbproject/
+user/*
+disabled/*
+
+#GEDIT 
+.gitignore~

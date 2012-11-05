@@ -31,11 +31,9 @@
 define(function (require, exports, module) {
     "use strict";
 
-    var baseFileUtils      = require("file/FileUtils"),
-        NativeApiConf = require("NativeApiConf"),
+    var baseFileUtils      = require("file/FileUtils"),        
         proxy = require("shell/js/proxy"),
-        bracksDir;
-    bracksDir = NativeApiConf.BRACKS_DIR;
+        bracksDir = require("shell/js/native_api_conf").BRACKS_DIR;
     
       
     if (bracksDir === undefined) {
@@ -72,7 +70,5 @@ define(function (require, exports, module) {
     exports.getNativeBracketsDirectoryPath = getNativeBracketsDirectoryPath;
     exports.getNativeModuleDirectoryPath   = baseFileUtils.getNativeModuleDirectoryPath;
     exports.canonicalizeFolderPath         = baseFileUtils.canonicalizeFolderPath;
-    exports.updateFileEntryPath            = baseFileUtils.updateFileEntryPath;
-    
- 
+    exports.updateFileEntryPath            = baseFileUtils.updateFileEntryPath;   
 });

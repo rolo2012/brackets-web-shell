@@ -1,10 +1,6 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
 /*global require, __dirname*/
-var config = {
-    ws_port: 9000,
-    http_port: 5901
-};
-
+var config = require("./config");
 var DEBUG = true;
 
 var http = require("http");
@@ -46,7 +42,7 @@ var wss = new WebSocketServer({ host: http.INADDR_ANY, port: config.ws_port });
 _log("Brackets Node Server listening on port " + config.ws_port);
 wss.on('connection', function (ws) {
     "use strict";
-    ws.on('message', function (message) {
+    ws.on('message', function (message) {        
         try {
             _handleMessage(ws, message);
         } catch (error) {
@@ -56,11 +52,7 @@ wss.on('connection', function (ws) {
 });
 
 
-function get_bracket_dir() {
-    "use strict";
-    var path = require("path");
-    return path.normalize(__dirname + "/../../../../adobe-brackets/src");
-}
+
 
 /*
  * For configuratun file 
@@ -74,7 +66,7 @@ http.createServer(function (req, res) {
             "RETURN_DATA_JSONP": 1,
             "DATA_FORMAT" : 0,
             "CALL_URL" : "ws://localhost:" + config.ws_port + "/",
-            "SERVER_TYPE": 'php_ajax',
+            "SERVER_TYPE": 'node_ws',
             "CONEXION_HTTP": 0,
             "CONEXION_WS": 1,
             "CONEXION_TYPE": 1,

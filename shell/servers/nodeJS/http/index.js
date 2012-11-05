@@ -24,7 +24,7 @@ function _log() {
 
 function _handleMessage(res, $REQUEST) {
     "use strict";
-    
+
     var module = require("./fs");
     var handler = module[$REQUEST.func_name];
     if (!handler || typeof handler !== "function") {
@@ -32,7 +32,7 @@ function _handleMessage(res, $REQUEST) {
         res.end();
         return;
     }
-    
+
     if ($REQUEST.params === undefined && $REQUEST['params[]'] !== undefined) {
         $REQUEST.params = $REQUEST['params[]'];
     }
@@ -69,26 +69,31 @@ function get_bracket_dir() {
     return path.normalize(__dirname + "/../../../../adobe-brackets/src");
 }
 
-function ouput_config(res) {
+function ouput_config(res,$GET) {
     "use strict";
     var json = {
-        "RETURN_DATA_JSON" : 0,
-        "RETURN_DATA_JSONP": 1,
-        "DATA_FORMAT" : 0,
-        "CALL_URL" : "http://localhost:" + config.http_port + "/apicall",
-        "SERVER_TYPE": 'php_ajax',
-        "CONEXION_HTTP" : 0,
-        "CONEXION_WS" : 1,
-        "CONEXION_TYPE" : 0,
-        "BRACKS_DIR" : get_bracket_dir()
+        error:0,
+        data:{
+            "RETURN_DATA_JSON" : 0,
+            "RETURN_DATA_JSONP": 1,
+            "DATA_FORMAT" : 0,
+            "CALL_URL" : "http://localhost:" + config.http_port + "/apicall",
+            "SERVER_TYPE": 'node_ajax',
+            "CONEXION_HTTP" : 0,
+            "CONEXION_WS" : 1,
+            "CONEXION_TYPE" : 0,
+            "BRACKS_DIR" : get_bracket_dir()
+        }
     };
+    var js = JSON.stringify(json);
+    if($GET['callback']){
+        js= $GET['callback']+"("+js+")";
+    }
     res.setHeader("Content-Type", "application/javascript");
-    res.end("define(" + JSON.stringify(json) + ")");
-
-
+    res.end(js);
 }
 /*
- * For configuratun file 
+ * For configuratun file
  * This must be sincronous
  * I dont how use with websockets
  */
@@ -105,15 +110,14 @@ http.createServer(function (req, res) {
     });
     req.addListener("end", function () {
         var file_path, request, $GET = [], $POST = [];
-       
-        if (req.url === "/apicall/config_module") {
-            ouput_config(res);
+        var query = req.url.split('?');
+        if (query.length > 1) {
+            query = query[query.length - 1];
+            $GET = qs.parse(query);
+        }
+        if (req.url.match(/\/apicall\/configure(\?.*)?/)) {
+            ouput_config(res,$GET);
         } else if (req.url.match(/^\/apicall(\/[a-zA-Z_][a-zA-Z0-9_]*)?$/)) {
-            var query = req.url.split('?');
-            if (query.length > 1) {
-                query = query[query.length - 1];
-                $GET = qs.parse(query);
-            }
             if (req.content) {
                 $POST = qs.parse(req.content);
             }

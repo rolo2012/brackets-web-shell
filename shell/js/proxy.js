@@ -3,12 +3,36 @@
 
 define(function (require, exports, module) {
     "use strict";
-    var NativeApiConf = require("NativeApiConf");
+    //var NativeApiConf = require("NativeApiConf");
     var _socket;
     var _messageId = 1;
     var _messageQueue = [];
     var _messageCallbacks = {};
+    var is_conected = false;
 
+    var
+    RETURN_DATA_JSON = 0,
+    RETURN_DATA_JSONP = 1,
+    CONEXION_HTTP = 0,
+    CONEXION_WS = 1,
+    CONEXION_TYPE,
+    DATA_FORMAT = 0,
+    CALL_URL = 0;
+     
+     
+    function config(conf) {        
+        if (conf) {
+            if (conf.CONEXION_TYPE!==undefined) {
+                CONEXION_TYPE = conf.CONEXION_TYPE;                
+            }
+            if (conf.DATA_FORMAT!==undefined) {
+                DATA_FORMAT = conf.DATA_FORMAT;
+            }
+            if (conf.CALL_URL!==undefined) {
+                CALL_URL = conf.CALL_URL;
+            }
+        }
+    }
 
     /**
      * Bridge to php server ajax_api
@@ -17,9 +41,9 @@ define(function (require, exports, module) {
      * @param callback funtion(data)  data is object whit 2 fields data.error and data.data
      */
     function remoteCallAjax(func_name, params, callback) {
-        var data_type = NativeApiConf.DATA_FORMAT === NativeApiConf.RETURN_DATA_JSON ? "json" : "jsonp";
+        var data_type = DATA_FORMAT === RETURN_DATA_JSON ? "json" : "jsonp";
         $.ajax({
-            url: NativeApiConf.CALL_URL + '/' + func_name,
+            url: CALL_URL + '/' + func_name,
             cache: false,
             dataType: data_type,
             type: 'POST',
@@ -31,7 +55,7 @@ define(function (require, exports, module) {
             callback(data);
         }).fail(function (data) {
             
-        });
+            });
     }
 
     /**
@@ -73,20 +97,22 @@ define(function (require, exports, module) {
     
     // on websocket closed
     function _onclose(event) {
-        module.connect();
+        connect();
     }
 
     // on websocket error
     function _onerror(event) {
+        is_conected=false;
     }
     // connect to the node server
     function connect() {
-        //_socket = new WebSocket("ws://" + window.location.host.replace(/:[0-9] + $/,'') + ":9000");
-        _socket = new WebSocket(NativeApiConf.CALL_URL);
+        //_socket = new WebSocket("ws://" + window.location.host.replace(/:[0-9] + $/,'') + ":9000");        
+        _socket = new WebSocket(CALL_URL);
         _socket.onopen = _onopen;
         _socket.onerror = _onerror;
         _socket.onclose = _onclose;
         _socket.onmessage = _onmessage;
+        is_conected=true;
     }
 
     // forward the method for the module to the node server
@@ -114,15 +140,24 @@ define(function (require, exports, module) {
 
     function remoteCallWebSocket(func_name, params, callback) {
         //All the functions are in the fs module
+        if(!is_conected){
+            connect();
+        }
         params = ["fs", func_name].concat(params);
         params.push(callback);
         return send.apply(undefined, params);
     }
-    if (NativeApiConf.CONEXION_TYPE === NativeApiConf.CONEXION_HTTP) {
-        exports.remoteCall = remoteCallAjax;
-    } else if (NativeApiConf.CONEXION_TYPE === NativeApiConf.CONEXION_WS) {
-        connect();
-        exports.remoteCall = remoteCallWebSocket;
+    
+    function  remoteCall(func_name, params, callback) {         
+        if (CONEXION_TYPE === CONEXION_HTTP) {
+            return remoteCallAjax(func_name, params, callback);
+        } else if (CONEXION_TYPE === CONEXION_WS) {
+            return remoteCallWebSocket(func_name, params, callback);
+        }        
+        throw "Uknow conexion type";
     }
-
+    exports.remoteCall = remoteCall;
+    exports.remoteCallAjax = remoteCallAjax;
+    exports.remoteCallWebSocket= remoteCallWebSocket;    
+    exports.config = config;
 });
