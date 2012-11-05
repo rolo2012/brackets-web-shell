@@ -1,5 +1,5 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
-/*global exports, require, process*/
+/*global exports, require, process, __dirname*/
 
 var trycatch = require("trycatch");
 var fs = require("fs");
@@ -208,7 +208,7 @@ function get_bracket_dir() {
     return path.normalize(__dirname + "/../../../../adobe-brackets/src");
 }
 
-function configure(callback){
+function configure(callback) {
     "use strict";
     var data = {
             "RETURN_DATA_JSON" : 0,
@@ -220,8 +220,8 @@ function configure(callback){
             "CONEXION_WS" : 1,
             "CONEXION_TYPE" : 1,
             "BRACKS_DIR" : get_bracket_dir()
-    };    
-    callback(0,data);
+        };
+    callback(0, data);
 }
 // current working directory
 function _cwd(callback) {

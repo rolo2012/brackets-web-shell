@@ -133,7 +133,7 @@ define(function (require, exports, module) {
      *
      * @return None. This is an asynchronous call that sends all return information to the callback.
      */
-    function GetFileModificationTime(callback, path) {        
+    function GetFileModificationTime(callback, path) {
         proxy.remoteCall('get_file_modification_time', path, function (data) {
             if (!data.data) {
                 callback(data.error);
@@ -336,7 +336,7 @@ define(function (require, exports, module) {
      * In the web server  return a url
      * @return {string} Full path of the application support directory
      */
-    function GetApplicationSupportDirectory(){
+    function GetApplicationSupportDirectory() {
         //return "http://localhost/brackets-web-shell/adobe-brackets/src";        
         return require("shell/js/native_api_conf").BRACKS_DIR;
     }

@@ -69,11 +69,11 @@ function get_bracket_dir() {
     return path.normalize(__dirname + "/../../../../adobe-brackets/src");
 }
 
-function ouput_config(res,$GET) {
+function ouput_config(res, $GET) {
     "use strict";
     var json = {
-        error:0,
-        data:{
+        error: 0,
+        data: {
             "RETURN_DATA_JSON" : 0,
             "RETURN_DATA_JSONP": 1,
             "DATA_FORMAT" : 0,
@@ -86,8 +86,8 @@ function ouput_config(res,$GET) {
         }
     };
     var js = JSON.stringify(json);
-    if($GET['callback']){
-        js= $GET['callback']+"("+js+")";
+    if ($GET.callback) {
+        js = $GET.callback + "(" + js + ")";
     }
     res.setHeader("Content-Type", "application/javascript");
     res.end(js);
@@ -115,8 +115,8 @@ http.createServer(function (req, res) {
             query = query[query.length - 1];
             $GET = qs.parse(query);
         }
-        if (req.url.match(/\/apicall\/configure(\?.*)?/)) {
-            ouput_config(res,$GET);
+        if (req.url.match(/\/apicall\/configure(\?[a-zA-Z_][a-zA-Z0-9_]*)?/)) {
+            ouput_config(res, $GET);
         } else if (req.url.match(/^\/apicall(\/[a-zA-Z_][a-zA-Z0-9_]*)?$/)) {
             if (req.content) {
                 $POST = qs.parse(req.content);

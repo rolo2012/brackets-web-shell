@@ -42,7 +42,7 @@ var wss = new WebSocketServer({ host: http.INADDR_ANY, port: config.ws_port });
 _log("Brackets Node Server listening on port " + config.ws_port);
 wss.on('connection', function (ws) {
     "use strict";
-    ws.on('message', function (message) {        
+    ws.on('message', function (message) {
         try {
             _handleMessage(ws, message);
         } catch (error) {
@@ -50,28 +50,3 @@ wss.on('connection', function (ws) {
         }
     });
 });
-
-
-
-
-/*
- * For configuratun file 
- * This must be sincronous
- * I dont how use with websockets
- */
-http.createServer(function (req, res) {
-    "use strict";
-    var json = {
-            "RETURN_DATA_JSON": 0,
-            "RETURN_DATA_JSONP": 1,
-            "DATA_FORMAT" : 0,
-            "CALL_URL" : "ws://localhost:" + config.ws_port + "/",
-            "SERVER_TYPE": 'node_ws',
-            "CONEXION_HTTP": 0,
-            "CONEXION_WS": 1,
-            "CONEXION_TYPE": 1,
-            "BRACKS_DIR": get_bracket_dir()
-        };
-    res.setHeader("Content-Type", "application/javascript");
-    res.end("define(" + JSON.stringify(json) + ")");
-}).listen(config.http_port);

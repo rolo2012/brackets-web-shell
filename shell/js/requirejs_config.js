@@ -46,11 +46,11 @@ var require = {
 
     };
     require.callback = function (native_api_conf) {
-        native_api_conf.init(conf_url,function(){            
-            require(["shell/js/appshell_extensions"],function(){
+        native_api_conf.init(conf_url, function () {
+            require(["shell/js/appshell_extensions"], function () {
                 require(['brackets']);
-            });            
-        });        
+            });
+        });
     };
 }());
 

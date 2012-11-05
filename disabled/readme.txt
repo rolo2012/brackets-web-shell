@@ -1,0 +1,1 @@
+Put here the  extension that you want to disable

@@ -17,26 +17,26 @@ define(function (require, exports, module) {
     require('shell/js/open_dialog');
     var native_client = require('shell/js/native_client');
     var
-    ShowOpenDialog = native_client.ShowOpenDialog,
-    ReadDir = native_client.ReadDir,
-    MakeDir = native_client.MakeDir,
-    Rename = native_client.Rename,
-    GetFileModificationTime = native_client.GetFileModificationTime,
-    QuitApplication = native_client.QuitApplication,
-    AbortQuit = native_client.AbortQuit,
-    ShowDeveloperTools = native_client.ShowDeveloperTools,
-    ReadFile = native_client.ReadFile,
-    WriteFile = native_client.WriteFile,
-    SetPosixPermissions = native_client.SetPosixPermissions,
-    DeleteFileOrDirectory = native_client.DeleteFileOrDirectory,
-    GetElapsedMilliseconds = native_client.GetElapsedMilliseconds,
-    OpenLiveBrowser = native_client.OpenLiveBrowser,
-    CloseLiveBrowser = native_client.CloseLiveBrowser,
-    OpenURLInDefaultBrowser = native_client.OpenURLInDefaultBrowser,
-    GetCurrentLanguage = native_client.GetCurrentLanguage,
-    ShowExtensionsFolder = native_client.ShowExtensionsFolder,
-    GetApplicationSupportDirectory= native_client.GetApplicationSupportDirectory,
-    ShowOSFolder= native_client.ShowOSFolder;
+        ShowOpenDialog = native_client.ShowOpenDialog,
+        ReadDir = native_client.ReadDir,
+        MakeDir = native_client.MakeDir,
+        Rename = native_client.Rename,
+        GetFileModificationTime = native_client.GetFileModificationTime,
+        QuitApplication = native_client.QuitApplication,
+        AbortQuit = native_client.AbortQuit,
+        ShowDeveloperTools = native_client.ShowDeveloperTools,
+        ReadFile = native_client.ReadFile,
+        WriteFile = native_client.WriteFile,
+        SetPosixPermissions = native_client.SetPosixPermissions,
+        DeleteFileOrDirectory = native_client.DeleteFileOrDirectory,
+        GetElapsedMilliseconds = native_client.GetElapsedMilliseconds,
+        OpenLiveBrowser = native_client.OpenLiveBrowser,
+        CloseLiveBrowser = native_client.CloseLiveBrowser,
+        OpenURLInDefaultBrowser = native_client.OpenURLInDefaultBrowser,
+        GetCurrentLanguage = native_client.GetCurrentLanguage,
+        ShowExtensionsFolder = native_client.ShowExtensionsFolder,
+        GetApplicationSupportDirectory = native_client.GetApplicationSupportDirectory,
+        ShowOSFolder = native_client.ShowOSFolder;
     
 
 
@@ -81,7 +81,7 @@ define(function (require, exports, module) {
     if (!appshell.app) {
         appshell.app = {};
     }
-    (function () {    
+    (function () {
         // Error values. These MUST be in sync with the error values
         // at the top of appshell_extensions_platform.h.
     
@@ -165,8 +165,8 @@ define(function (require, exports, module) {
         appshell.fs.showOpenDialog = function (allowMultipleSelection, chooseDirectory, title, initialPath, fileTypes, callback) {
             setTimeout(function () {
                 ShowOpenDialog(callback, allowMultipleSelection, chooseDirectory,
-                title || 'Open', initialPath || '',
-                fileTypes ? fileTypes.join(' ') : '');
+                    title || 'Open', initialPath || '',
+                    fileTypes ? fileTypes.join(' ') : '');
             }, 10);
         };
     
@@ -215,7 +215,7 @@ define(function (require, exports, module) {
          * @return None. This is an asynchronous call that sends all return information to the callback.
          **/
         //native function Rename();
-        appshell.fs.rename = function(oldPath, newPath, callback) {
+        appshell.fs.rename = function (oldPath, newPath, callback) {
             Rename(callback, oldPath, newPath);
         };
  
@@ -234,8 +234,8 @@ define(function (require, exports, module) {
          * @return None. This is an asynchronous call that sends all return information to the callback.
          */
         //native function GetFileModificationTime();
-        appshell.fs.stat = function (path, callback) {            
-            GetFileModificationTime(function (err, modtime, isDir) {                
+        appshell.fs.stat = function (path, callback) {
+            GetFileModificationTime(function (err, modtime, isDir) {
                 callback(err, {
                     isFile: function () {
                         return !isDir;
@@ -361,7 +361,7 @@ define(function (require, exports, module) {
         //native function GetElapsedMilliseconds();
         appshell.app.getElapsedMilliseconds = function () {
             return GetElapsedMilliseconds();
-        }
+        };
     
         /**
          * Open the live browser
@@ -380,7 +380,7 @@ define(function (require, exports, module) {
         //native function OpenLiveBrowser();
         appshell.app.openLiveBrowser = function (url, enableRemoteDebugging, callback) {
             // enableRemoteDebugging flag is ignored on mac
-            setTimeout(function() {
+            setTimeout(function () {
                 OpenLiveBrowser(callback, url, enableRemoteDebugging);
             }, 0);
         };
@@ -422,7 +422,7 @@ define(function (require, exports, module) {
         //native function GetCurrentLanguage();
         Object.defineProperty(appshell.app, "language", {
             writeable: false,
-            get : function() { return GetCurrentLanguage(); },
+            get : function () { return GetCurrentLanguage(); },
             enumerable : true,
             configurable : false
         });
@@ -437,7 +437,7 @@ define(function (require, exports, module) {
         //native function GetApplicationSupportDirectory();
         appshell.app.getApplicationSupportDirectory = function () {
             return GetApplicationSupportDirectory();
-        }
+        };
   
         /**
          * Open the specified folder in an OS file window.
@@ -449,8 +449,8 @@ define(function (require, exports, module) {
          */
         //native function ();
         appshell.app.showOSFolder = function (path, callback) {
-            ShowOSFolder(callback, path);            
-        }
+            ShowOSFolder(callback, path);
+        };
  
         /**
          * Open the extensions folder in an OS file window.
@@ -461,10 +461,10 @@ define(function (require, exports, module) {
          * @return None. This is an asynchronous call that sends all return information to the callback.
          */
         appshell.app.showExtensionsFolder = function (appURL, callback) {
-            appshell.app.showOSFolder(GetApplicationSupportDirectory() + "/extensions", callback);            
+            appshell.app.showOSFolder(GetApplicationSupportDirectory() + "/extensions", callback);
         };
  
         // Alias the appshell object to brackets. This is temporary and should be removed.
-        brackets = appshell;        
-    })();
+        brackets = appshell;
+    }());
 });
