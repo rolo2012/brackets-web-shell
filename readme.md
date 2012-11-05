@@ -6,7 +6,7 @@ The servers implementations for the moment are:
  
 How to Run
 --------------
-Put the **adobe-brackets** project folder download from github [download](here.md)
+Put the **adobe-brackets** project folder download from github [download](https://github.com/adobe/brackets/archive/master.zip)
 In the toplevel folder of the bracket-web-shell and rename it to *adobe-brackets*
 in windows click *rename_brackdir.bat*
 And copy in adobe-brackets/src/thirdparty the dependecies:
