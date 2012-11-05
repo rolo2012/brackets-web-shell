@@ -1,8 +1,8 @@
 # Brackets Web Shell
 This is a shell replacement for Adobe-Brackets for run it a in browser.
 The servers implementations for the moment are:
-1-)Php HTTP server
-2-)NodeJs HTTP and WebSockets
++ Php HTTP server
++ NodeJs HTTP and WebSockets
  
 How to Run
 --------------
@@ -10,11 +10,11 @@ Put the **adobe-brackets** project folder download from github [download](https:
 In the toplevel folder of the bracket-web-shell and rename it to *adobe-brackets*
 in windows click *rename_brackdir.bat*
 And copy in adobe-brackets/src/thirdparty the dependecies:
-    CodeMirror2
-    path-utils
-    jslint
-    smart-auto-complete
-    mustache
+   + CodeMirror2
+   + path-utils
+   + jslint
+   + smart-auto-complete
+   + mustache
 
 *You can get all the dependencies if you download a full version of bracket instaler and take from this or with a git client that parse the .gitmodules and download for you*
 
