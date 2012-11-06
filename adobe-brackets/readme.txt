@@ -1,1 +1,0 @@
-Put here the contents of https://github.com/adobe/brackets
