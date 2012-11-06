@@ -1,0 +1,3 @@
+[submodule "adobe-brackets"]
+	path = adobe-brackets
+	url = https://github.com/adobe/brackets.git
