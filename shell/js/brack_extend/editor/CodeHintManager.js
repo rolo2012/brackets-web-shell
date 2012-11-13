@@ -20,7 +20,6 @@
  * DEALINGS IN THE SOFTWARE.
  * 
  */
-
 /*
  *PACHES FOR BROWSER:
  *ADD e.preventDefault(); in CodeHintList.prototype.addItem

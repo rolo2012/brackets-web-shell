@@ -28,14 +28,15 @@
 /**
  * Set of utilites for working with files and text content.
  */
+
 define(function (require, exports, module) {
     "use strict";
 
-    var baseFileUtils      = require("file/FileUtils"),        
+    var baseFileUtils      = require("file/FileUtils"),
         proxy = require("shell/js/proxy"),
         bracksDir = require("shell/js/native_api_conf").BRACKS_DIR;
-    
-      
+    var export_names, i;
+
     if (bracksDir === undefined) {
         console.log("ERROR: THE SERVER DOSENT RETURN A VALID PATH TO BRAKETS (BRACKS_DIR) ");
     }
@@ -55,20 +56,15 @@ define(function (require, exports, module) {
     function getNativeBracketsDirectoryPath() {
         return remove_slash(bracksDir).replace(/\\/g, "/");
     }
-   
-    exports.LINE_ENDINGS_CRLF              = baseFileUtils.LINE_ENDINGS_CRLF;
-    exports.LINE_ENDINGS_LF                = baseFileUtils.LINE_ENDINGS_LF;
-    exports.getPlatformLineEndings         = baseFileUtils.getPlatformLineEndings;
-    exports.sniffLineEndings               = baseFileUtils.sniffLineEndings;
-    exports.translateLineEndings           = baseFileUtils.translateLineEndings;
-    exports.showFileOpenError              = baseFileUtils.showFileOpenError;
-    exports.getFileErrorString             = baseFileUtils.getFileErrorString;
-    exports.readAsText                     = baseFileUtils.readAsText;
-    exports.writeText                      = baseFileUtils.writeText;
-    exports.convertToNativePath            = baseFileUtils.convertToNativePath;
-    //exports.getNativeBracketsDirectoryPath = baseFileUtils.getNativeBracketsDirectoryPath;
+    
+    //Load all ineherited metods
+    export_names = Object.getOwnPropertyNames(baseFileUtils);
+    console.log(export_names);
+    for (i = 0; i < export_names.length; i++) {
+
+        exports[export_names[i]] = baseFileUtils[export_names[i]];
+    }
+    //overwrite getNativeBracketsDirectoryPath
     exports.getNativeBracketsDirectoryPath = getNativeBracketsDirectoryPath;
-    exports.getNativeModuleDirectoryPath   = baseFileUtils.getNativeModuleDirectoryPath;
-    exports.canonicalizeFolderPath         = baseFileUtils.canonicalizeFolderPath;
-    exports.updateFileEntryPath            = baseFileUtils.updateFileEntryPath;   
+
 });
