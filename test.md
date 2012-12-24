@@ -20,3 +20,24 @@ Instalar usando la flash booteable
   Tech User y Tech User Pass = Usuario del dominio y password con privilegio de unir la PC a este (tecnico de soporte o administrador del dominio)
 2. Se arranca desde la usb y se seleciona *Paso 1 del Setup de WinXp* se seleciona la particion como es de costumbre.
 3. Luego se seleciona *Paso 2 y  3 Setup de WinXP* dos veces si la flash es el primer dispositivo de arranque selecionara este paso automaticamente.
+
+####En caso de no tener booteo flash 
++ Usar el hiren modificado MyHBCD10.5.iso selecionar  *Plop Boot Manager (boot from usb)>USB* y selecionar los pasos 1, 2 y 3 para instalar.
+
+Utilidades Desatendidas y cobro portable
+-----------------------------------
+Si ya esta windows instalado se ejecuta de la carpeta SOFT *install.exe* y este instalara automaticamente:
++ Compresor WinRar
++	Karspersky y Agente
++	Microsoft Office 2003
++	Navegadores de Internet
++	Thunderbird
++	Java Develoment Kit
++	Codecs
++	Flash Player
++	Acrobat Reader
++	Agente del OCS
++	Controles del Siprec
+
+Afuera en la carpeta esta el cobro portable (un autoextraible) se ejecuta con dobleclick y se extrae en D: preferiblemente
+	
